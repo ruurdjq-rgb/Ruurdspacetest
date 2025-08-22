@@ -1,0 +1,37 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --watch server.js --watch public server.js",
+    "lint": "echo \"No lint configured\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruurdjq-rgb/Ruurdspacetest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruurdjq-rgb/Ruurdspacetest/issues"
+  },
+  "homepage": "https://github.com/ruurdjq-rgb/Ruurdspacetest#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "openai": "^5.15.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
