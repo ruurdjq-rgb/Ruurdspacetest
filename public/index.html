@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Book Mindmap Summarizer</title>
+	<link rel="stylesheet" href="/style.css" />
+	<script src="https://unpkg.com/d3@7/dist/d3.min.js" defer></script>
+	<script src="/app.js" defer></script>
+</head>
+<body>
+	<header>
+		<h1>Book Mindmap Summarizer</h1>
+	</header>
+	<main>
+		<section class="left">
+			<form id="uploadForm">
+				<label>Book title (optional)
+					<input type="text" id="title" name="title" placeholder="e.g., Atomic Habits" />
+				</label>
+				<label>Your life context (helps personalize)
+					<textarea id="context" name="context" rows="6" placeholder="Career goals, habits, constraints, current projects..."></textarea>
+				</label>
+				<label>Upload book (PDF or TXT)
+					<input type="file" id="file" name="file" accept=".pdf,.txt,application/pdf,text/plain" required />
+				</label>
+				<button type="submit">Generate summary + mindmap</button>
+			</form>
+			<div id="status" class="status"></div>
+			<div class="actions">
+				<button id="downloadJson" disabled>Download JSON</button>
+				<button id="downloadPng" disabled>Download PNG</button>
+			</div>
+		</section>
+		<section class="right">
+			<h2>Personal Summary</h2>
+			<div id="summary" class="summary"></div>
+			<h2>Mindmap</h2>
+			<svg id="mindmap" width="100%" height="600"></svg>
+		</section>
+	</main>
+	<footer>
+		<a href="https://openai.com" target="_blank" rel="noreferrer">Powered by OpenAI</a>
+	</footer>
+</body>
+</html>

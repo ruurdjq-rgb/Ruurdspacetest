@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 0; color: #111; background: #fafafa; }
+header { padding: 16px 24px; background: #111; color: #fff; }
+header h1 { margin: 0; font-size: 20px; }
+main { display: grid; grid-template-columns: 420px 1fr; gap: 16px; padding: 16px; align-items: start; }
+section.left { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; }
+section.right { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; }
+form label { display: block; margin-bottom: 12px; font-weight: 600; }
+input[type="text"], textarea, input[type="file"] { width: 100%; margin-top: 6px; }
+input[type="text"], textarea { padding: 10px; border: 1px solid #e5e7eb; border-radius: 6px; font: inherit; }
+button { appearance: none; border: none; background: #111; color: #fff; padding: 10px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+button:disabled { background: #9ca3af; cursor: not-allowed; }
+.status { margin-top: 12px; min-height: 20px; color: #2563eb; }
+.summary { white-space: pre-wrap; line-height: 1.5; }
+svg#mindmap { border: 1px dashed #e5e7eb; border-radius: 6px; background: #fff; }
+footer { padding: 16px 24px; color: #6b7280; }
