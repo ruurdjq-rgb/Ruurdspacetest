@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>FocusFlow</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+	<header class="app-header">
+		<h1>FocusFlow</h1>
+		<nav class="tabs" role="tablist" aria-label="Views">
+			<button class="tab active" data-tab="timer" role="tab" aria-selected="true">Timer</button>
+			<button class="tab" data-tab="tasks" role="tab" aria-selected="false">Tasks</button>
+			<button class="tab" data-tab="stats" role="tab" aria-selected="false">Stats</button>
+		</nav>
+	</header>
+	<main>
+		<section id="view-timer" class="view active" role="tabpanel" aria-labelledby="tab-timer">
+			<div class="timer-card">
+				<div class="timer-display" aria-live="polite"><span id="time">25:00</span></div>
+				<div class="timer-controls">
+					<button id="start">Start</button>
+					<button id="pause">Pause</button>
+					<button id="reset">Reset</button>
+				</div>
+				<div class="timer-modes">
+					<label>Focus <input type="number" id="focus-min" min="1" max="120" value="25"> min</label>
+					<label>Short Break <input type="number" id="short-min" min="1" max="60" value="5"> min</label>
+					<label>Long Break <input type="number" id="long-min" min="1" max="60" value="15"> min</label>
+					<label>Long Break Every <input type="number" id="long-every" min="1" max="12" value="4"> focus</label>
+				</div>
+			</div>
+		</section>
+		<section id="view-tasks" class="view" role="tabpanel" aria-labelledby="tab-tasks">
+			<div class="tasks">
+				<form id="task-form" autocomplete="off">
+					<input id="task-title" placeholder="Add a task..." required />
+					<input id="task-est" type="number" min="1" max="12" value="1" />
+					<button type="submit">Add</button>
+				</form>
+				<ul id="task-list"></ul>
+			</div>
+		</section>
+		<section id="view-stats" class="view" role="tabpanel" aria-labelledby="tab-stats">
+			<canvas id="stats-chart" width="400" height="200" aria-label="7 day focus chart"></canvas>
+		</section>
+	</main>
+	<footer class="app-footer">
+		<span id="today-summary"></span>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="./app.js" type="module"></script>
+</body>
+</html>
+
