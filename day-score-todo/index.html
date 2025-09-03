@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dagscore To-do</title>
+  <link rel="stylesheet" href="./styles.css">
+  <meta name="description" content="Eenvoudige to-do lijst per dag met automatische dagscore. Data wordt lokaal opgeslagen.">
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Dagscore To-do</h1>
+      <div class="date-picker">
+        <label for="datePicker">Datum</label>
+        <input type="date" id="datePicker" />
+      </div>
+    </header>
+
+    <section class="add-task">
+      <form id="addTaskForm" autocomplete="off">
+        <input type="text" id="taskTitle" placeholder="Nieuwe taak..." required />
+        <button type="submit" id="addTaskButton">Toevoegen</button>
+      </form>
+    </section>
+
+    <section class="score" aria-live="polite">
+      <div class="score-block">
+        <span class="score-value" id="scoreValue">0</span>
+        <span class="score-label">Score vandaag</span>
+      </div>
+      <div class="counts">
+        <span id="completedCount">0</span>/<span id="totalCount">0</span> voltooid
+      </div>
+    </section>
+
+    <section class="task-list">
+      <ul id="taskList" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Data wordt lokaal opgeslagen in je browser. Voltooide taak = 1 punt.</p>
+  </footer>
+
+  <script src="./script.js"></script>
+  <noscript>Schakel JavaScript in om deze app te gebruiken.</noscript>
+</body>
+</html>
+
