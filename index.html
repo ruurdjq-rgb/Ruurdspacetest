@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales Follow-up Cockpit</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__title">
+      <h1>Sales Follow-up Cockpit</h1>
+      <p class="topbar__subtitle">Jouw persoonlijke opvolging — geen CRM, geen gedoe.</p>
+    </div>
+    <div class="stats" id="stats">
+      <div class="stat stat--today">
+        <span class="stat__value" id="stat-today">0</span>
+        <span class="stat__label">Vandaag</span>
+      </div>
+      <div class="stat stat--overdue">
+        <span class="stat__value" id="stat-overdue">0</span>
+        <span class="stat__label">Te laat</span>
+      </div>
+      <div class="stat stat--done">
+        <span class="stat__value" id="stat-done">0</span>
+        <span class="stat__label">Afgerond vandaag</span>
+      </div>
+    </div>
+    <button class="btn btn--primary btn--new" id="btn-new-task">+ Nieuwe follow-up</button>
+  </header>
+
+  <main class="board" id="board">
+    <!-- Secties worden hier gerenderd -->
+  </main>
+
+  <!-- Modal voor toevoegen/bewerken -->
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal__header">
+        <h2 id="modal-title">Nieuwe follow-up</h2>
+        <button class="modal__close" id="modal-close" aria-label="Sluiten">&times;</button>
+      </div>
+      <form id="task-form" class="form">
+        <input type="hidden" id="field-id" />
+
+        <label class="form__row">
+          <span class="form__label">Bedrijfsnaam *</span>
+          <input type="text" id="field-company" required placeholder="Bijv. Acme B.V." autocomplete="off" />
+        </label>
+
+        <div class="form__grid">
+          <label class="form__row">
+            <span class="form__label">Type actie</span>
+            <select id="field-action">
+              <option value="bellen">Bellen</option>
+              <option value="reminder">Reminder mail</option>
+              <option value="wachten">Wachten op klant</option>
+              <option value="offerte">Offerte opvolgen</option>
+              <option value="handmatig">Handmatige actie</option>
+            </select>
+          </label>
+
+          <label class="form__row">
+            <span class="form__label">Opvolgdatum</span>
+            <input type="date" id="field-due" required />
+          </label>
+        </div>
+
+        <div class="form__grid">
+          <label class="form__row">
+            <span class="form__label">Status</span>
+            <select id="field-status">
+              <option value="open">Open</option>
+              <option value="wachten">Wachten</option>
+              <option value="gedaan">Gedaan</option>
+              <option value="gewonnen">Gewonnen</option>
+              <option value="verloren">Verloren</option>
+            </select>
+          </label>
+
+          <label class="form__row">
+            <span class="form__label">Prioriteit</span>
+            <select id="field-priority">
+              <option value="laag">Laag</option>
+              <option value="normaal" selected>Normaal</option>
+              <option value="hoog">Hoog</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="form__row">
+          <span class="form__label">Grove dealwaarde (optioneel)</span>
+          <input type="number" id="field-value" min="0" step="100" placeholder="Bijv. 5000" />
+        </label>
+
+        <label class="form__row">
+          <span class="form__label">Korte notitie</span>
+          <textarea id="field-note" rows="2" placeholder="Bijv. Wacht op akkoord directie"></textarea>
+        </label>
+
+        <!-- Automatische opvolgregel -->
+        <div class="autofollow" id="autofollow">
+          <label class="autofollow__toggle">
+            <input type="checkbox" id="field-offerte-sent" />
+            <span>Offerte gestuurd — stel automatisch opvolging voor</span>
+          </label>
+          <div class="autofollow__options" id="autofollow-options" hidden>
+            <p class="autofollow__hint">Er worden twee losse taken aangemaakt. Pas de datums gerust aan.</p>
+            <label class="autofollow__opt">
+              <input type="checkbox" id="af-reminder" checked />
+              <span>Reminder mail op</span>
+              <input type="date" id="af-reminder-date" />
+            </label>
+            <label class="autofollow__opt">
+              <input type="checkbox" id="af-call" checked />
+              <span>Bellen op</span>
+              <input type="date" id="af-call-date" />
+            </label>
+          </div>
+        </div>
+
+        <div class="form__actions">
+          <button type="button" class="btn btn--ghost" id="modal-cancel">Annuleren</button>
+          <button type="submit" class="btn btn--primary" id="modal-save">Opslaan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal voor herplannen -->
+  <div class="modal-overlay" id="reschedule-overlay" hidden>
+    <div class="modal modal--small" role="dialog" aria-modal="true" aria-labelledby="reschedule-title">
+      <div class="modal__header">
+        <h2 id="reschedule-title">Nieuwe opvolgdatum</h2>
+        <button class="modal__close" id="reschedule-close" aria-label="Sluiten">&times;</button>
+      </div>
+      <form id="reschedule-form" class="form">
+        <input type="hidden" id="reschedule-id" />
+        <p class="reschedule__company" id="reschedule-company"></p>
+        <div class="reschedule__quick" id="reschedule-quick">
+          <button type="button" class="btn btn--chip" data-days="1">+1 dag</button>
+          <button type="button" class="btn btn--chip" data-days="3">+3 dagen</button>
+          <button type="button" class="btn btn--chip" data-days="7">+7 dagen</button>
+          <button type="button" class="btn btn--chip" data-days="14">+14 dagen</button>
+        </div>
+        <label class="form__row">
+          <span class="form__label">Kies een datum</span>
+          <input type="date" id="reschedule-date" required />
+        </label>
+        <div class="form__actions">
+          <button type="button" class="btn btn--ghost" id="reschedule-cancel">Annuleren</button>
+          <button type="submit" class="btn btn--primary">Plannen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
